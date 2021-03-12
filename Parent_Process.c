@@ -5,14 +5,14 @@
 int main()
 {
 
-    pid_t pid1 = fork();
+    pid_t pid1 = fork(); // fork a child
 
-    if (pid1 < 0)
+    if (pid1 < 0) // fork failed
     {
         fprintf(stderr, "Fork Failed\n");
         return 0;
     }
-    else if (pid1 == 0)
+    else if (pid1 == 0) // child process 1
     {
         char *const argv[] = {NULL};
         execv("./Process_P1", argv);
@@ -20,15 +20,15 @@ int main()
     }
     else
     {
-        wait(NULL);
-        pid_t pid2 = fork();
+        wait(NULL); // parent wait for child process 1
+        pid_t pid2 = fork(); // fork another child
 
-        if (pid2 < 0)
+        if (pid2 < 0) // fork failed
         {
             fprintf(stderr, "Fork Failed\n");
             return 0;
         }
-        else if (pid2 == 0)
+        else if (pid2 == 0) // child process
         {
             char *const argv[] = {NULL};
             execv("./Process_P2", argv);
@@ -36,7 +36,7 @@ int main()
         }
     }
 
-    wait(NULL);
+    wait(NULL); // parent wait for child process 2
 
     return 0;
 }
